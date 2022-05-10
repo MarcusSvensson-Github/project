@@ -1,0 +1,10 @@
+body {
+    background-image: url("BILD");
+    background-image: linear-gradient(rgba(5, 12, 232, 0.3));
+    position: relative;
+    background-size: 200%;
+    opacity: 1;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    background-repeat: no-repeat;
+}
