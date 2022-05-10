@@ -1,0 +1,25 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1>MA Market</h1>
+    <ul class="navbar">
+        <li><a href="{{ url_for('login') }}">login</a></li>
+        <li><a href="{{ url_for('private') }}">private</a></li>
+        <li><a href="{{ url_for('product') }}">product</a></li>
+        <li><a href="{{ url_for('index') }}">index</a></li>
+    </ul>
+    <br>
+</nav>
+
+
+<!-- Allt under här är skräp som inte gör något :)-->
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
