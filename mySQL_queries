@@ -1,8 +1,7 @@
-CREATE TABLE User (userID integer not null auto_increment, password varchar(50), phone integer, email varchar(50), primary key (userID));
+CREATE TABLE Customers(username varchar(50), password varchar(50), phone integer, email varchar(50), primary key (username));
 CREATE TABLE Product (productID integer not null auto_increment, name varchar(50), price integer, description varchar(100), primary key (productID));
-CREATE TABLE Sell(user integer, product integer, creationDate date, foreign key (user) references User(userID), foreign key (product) references Product(productID));
-CREATE TABLE Buy(user integer, product integer, boughtDate date, foreign key (user) references User(userID), foreign key (product) references Product(productID));
-
+CREATE TABLE Sell(user varchar(50), product integer, creationDate date, foreign key (user) references Customers(username), foreign key (product) references Product(productID));
+CREATE TABLE Buy(user varchar(50), product integer, boughtDate date, foreign key (user) references Customers(username), foreign key (product) references Product(productID));
 
 
 pyMSAD'@'%'
