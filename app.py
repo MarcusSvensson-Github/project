@@ -1,34 +1,76 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, session, request, redirect, url_for
+
 app = Flask(__name__)
+app.secret_key = b'test'  # <--- väldigt osäkert
 
 
-@app.route("/") #välkomnssida som kan skicka dig till login eller skapa konto
+@app.route("/")
 def index():
+    # if 'username' in session:
+    #    return f'Logged in as {session["username"]}'
+    # return 'You are not logged in'
     return render_template('index.html')
 
-<<<<<<< HEAD
-@app.route("/login", methods['GET', 'POST'])
-def login():   
-    if request.method == 'POST':
-        return do_login() #ej skapad funktion, bör skapa session?
-    else:
-        render_template('login.html') # vanliga loginsidan vi möts av vid login
-=======
-@app.route("/login")
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        # 1. ta in username, password från request.form
+        # 2. kolla om username finns i databas
+        # 2.1 om det inte finns ge error. Användaren har inte konto
+        # 3. hasha lösenord och jämför med det hashade i databasen
+        # 3.1 matchar det inte ge error. fel lösenord.
+        # 4. sätt session['user_id'] = unikt id för användaren från databas
+        # 5. redirecta användaren till lämplig sida ex index.
+
+        # OBS INTE KORREKT SÄTT ATT GÖRA DETTA PÅ följ stegen ovan istället
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
+        print(session['username'], session['password'])
+
+        # hämta user från databas
+        #session['user_id'] = user['id']
+        return redirect(url_for('index'))
+        # else skapa konto
+        # return redirect(url_for('create'))
+
     return render_template('login.html')
->>>>>>> 87635d6a3058e0eba619d755881b7bb1075d6d67
+
+
+@app.route('/create_user', methods=('GET', 'POST'))
+def create_user():
+    if request.method == 'POST':
+        pass
+        # för hashing använd
+        # from werkzeug.security import check_password_hash, generate_password_hash
+
+        # 1. ta in username, password från request.form
+        # 2. kolla så att fälten inte är tomma
+        # 3. kolla så att användaren inte redan finns i databasen
+        # 4. lägg till username, password i databasen men hasha password först
+        # 5. redirect user
+    return '''<p> SKAPA EN ANVÄNDARE </p>'''
+
+# behöver en function before_app_request för att kolla vilken användare som gör requesten,  g.user
+# https://flask.palletsprojects.com/en/2.1.x/api/#flask.Blueprint.before_app_request
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 
 @app.route("/private")
 def private():
     return render_template('private.html')
 
+
 @app.route("/product")
 def product():
-<<<<<<< HEAD
-    return render_template('product.html')
-=======
     return render_template('product.html')
 
 
->>>>>>> 87635d6a3058e0eba619d755881b7bb1075d6d67
+@app.route("/test")
+def test():
+    return render_template('test.html')

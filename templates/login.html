@@ -1,18 +1,15 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html>
+{% block header %}
+<h1>{% block title %}Log In{% endblock %}</h1>
+{% endblock %}
 
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href= "static/style.css">
-</head>
-
-<body>
-    <h1>LOGIN</h1>
-    <script>
-    </script>
-
-</body>
-
-</html>
+{% block content %}
+<form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Log In">
+</form>
+{% endblock %}
