@@ -1,4 +1,4 @@
-"""
+
 from flask import Flask, render_template, session, request, redirect, url_for
 
 
@@ -77,5 +77,3 @@ def product():
 @app.route("/test")
 def test():
     return render_template('test.html')
-
-"""
