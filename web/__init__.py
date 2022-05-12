@@ -4,7 +4,7 @@ from flask import Flask, render_template, session, request, redirect, url_for
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "EnSträng"
+    app.config['SECRET_KEY'] = "EnSträng"   #någonting för säkerhet, hashar strängen till en nyckel av något slag
 
     from .views import views #här hämtar vi router i views som blueprint ifrån views.py
     from .auth import auth #här hämtar vi router i auth som blueprint ifrån auth.py  
