@@ -1,3 +1,3 @@
-jag har gjort två separata mappar nu av anledningen att våra templates och lite annan kod hamnar konflikt (går inte att köra när bägge existerar). Nu behöver vi inte ta bort någon kod i repository men kan efter vi hämtat radera den mappen vi inte vill testa, om vi vill testköra en av applikationerna.
+jag har gjort två separata mappar nu av anledningen att våra templates och lite annan kod hamnar konflikt.
 
-försök att inte glömma bort du gjort det efter och pusha till G-hub så ska jag göra mitt allra bästa för inte göra detsamma :')
+Nu går bägge att köras om man står i vardera mapp :)
