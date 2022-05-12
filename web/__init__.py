@@ -1,4 +1,4 @@
-# vår app, vart den startar och konf. Vi kopplar ihop allt här.
+# vart den startar och konf. Vi kopplar ihop allt här.
 
 from flask import Flask, render_template, session, request, redirect, url_for
 
