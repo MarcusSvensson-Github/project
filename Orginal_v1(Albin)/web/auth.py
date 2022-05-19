@@ -13,25 +13,45 @@ auth = Blueprint('auth', __name__)
 def login():
     if request.method == 'POST':
         # 1. ta in username, password från request.form
+        username = request.form['username']
+        password = request.form['password']
+
+        error = None
         # 2. kolla om username finns i databas
-        # 2.1 om det inte finns ge error. Användaren har inte konto
-        # 3. hasha lösenord och jämför med det hashade i databasen
-        # 3.1 matchar det inte ge error. fel lösenord.
-        # 4. sätt session['user_id'] = unikt id för användaren från databas
-        # 5. redirecta användaren till lämplig sida ex index.
+        db = get_db()
 
-        # OBS INTE KORREKT SÄTT ATT GÖRA DETTA PÅ följ stegen ovan istället
-        session['username'] = request.form['username']
-        session['password'] = request.form['password']
-        print(session['username'], session['password'])
+        with db:
+            with db.cursor() as cursor:
 
-        # hämta user från databas
-        #session['user_id'] = user['id']
-        return redirect(url_for('views.home'))
-        # else skapa konto
-        # return redirect(url_for('create'))
+                sql = 'SELECT * FROM customers WHERE username= %s'
+
+                cursor.execute(sql, (username))
+                user = cursor.fetchone()
+                print(user)
+
+                if user is None:
+                    error = 'Wrong username'
+                elif not check_password_hash(user['password'], password):
+                    error = 'Wrong password'
+
+                if error is None:
+                    session.clear()
+                    session['user'] = user['username']
+                    return redirect(url_for('views.home'))
+                flash(error)
 
     return render_template('login.html')
+    # 2.1 om det inte finns ge error. Användaren har inte konto
+    # 3. hasha lösenord och jämför med det hashade i databasen
+    # 3.1 matchar det inte ge error. fel lösenord.
+    # 4. sätt session['user_id'] = unikt id för användaren från databas
+    # 5. redirecta användaren till lämplig sida ex index.
+
+
+    # OBS INTE KORREKT SÄTT ATT GÖRA DETTA PÅ följ stegen ovan istället
+"""         session['username'] = request.form['username']
+        session['password'] = request.form['password']
+        print(session['username'], session['password']) """
 
 
 @auth.route('/logout')
