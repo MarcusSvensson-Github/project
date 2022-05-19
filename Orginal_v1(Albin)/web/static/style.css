@@ -19,12 +19,26 @@ ul.navbar li {
 ul.navbar li a {
     display: block;
     padding: 2px 20px;
-
+    color: rgb(75, 50, 17);
+    text-decoration: none;
+    font-size: 20px;
     text-align: center;
 }
 
-ul.navbar li a:hover {
+ul.navbar li a::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background:rgb(75, 50, 17);
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+
+ul.navbar li a:hover::after {
     background-color: rgb(112, 112, 112);
+    width: 100%;
 }
 
 nav {
