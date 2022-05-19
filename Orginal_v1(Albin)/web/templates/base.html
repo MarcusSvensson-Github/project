@@ -4,10 +4,8 @@
 <nav>
     <h1>MA Market</h1>
     <ul class="navbar">
-        <li><a href="{{ url_for('login') }}">login</a></li>
-        <li><a href="{{ url_for('private') }}">private</a></li>
-        <li><a href="{{ url_for('product') }}">product</a></li>
-        <li><a href="{{ url_for('index') }}">index</a></li>
+        <li><a href="{{ url_for('auth.login') }}">login</a></li>
+        <li><a href="{{ url_for('views.home') }}">index</a></li>
     </ul>
     <br>
 </nav>
