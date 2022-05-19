@@ -1,10 +1,7 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <h1>INDEX</h1>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
-</html>
+{% extends "base.html" %} <!-- här importerar vi vår base.html -->
+
+{% block title %} Homepage {% endblock %} <!-- vi ändrar innehåll i blocket title -->
+
+{% block content %}             <!-- vi ändrar innehåll i blocket content -->
+<h1> content goes here! </h1> 
+{% endblock %}
