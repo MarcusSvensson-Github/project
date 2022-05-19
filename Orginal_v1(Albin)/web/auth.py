@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, session, request, redirect, url_for, flash
+from flask import Blueprint, render_template, session, request, redirect, url_for, flash, g
+
+import functools
 
 # funktion för att läsa databas
 from .db import get_db
@@ -7,6 +9,17 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 auth = Blueprint('auth', __name__)
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 
 @auth.route("/login", methods=['GET', 'POST'])
@@ -55,15 +68,17 @@ def login():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
+    print(g.user)
     session.clear()
+    print(g.user)
     return 'logout'
 
 
 @auth.route('/sign-up', methods=('GET', 'POST'))
 def create_user():
     if request.method == 'POST':
-        pass
         # för hashing använd
         # from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -102,6 +117,24 @@ def create_user():
 
     return render_template('sign-up.html')
 
-    # 4. lägg till username, password i databasen men hasha password först
-    # 5. redirect user
-    # return '''<p> SKAPA EN ANVÄNDARE </p>'''
+
+@auth.before_app_request
+def load_logged_in_user():
+    user = session.get('user')
+    if user is None:
+        g.user = None
+    else:
+        db = get_db()
+        sql = 'SELECT * FROM customers WHERE username=%s'
+        with db:
+            with db.cursor() as cursor:
+                cursor.execute(sql, (user))
+                g.user = cursor.fetchone()
+
+
+@auth.route('/test')
+def test():
+    if g.user is None:
+        return "g.user är tom"
+    else:
+        return g.user
