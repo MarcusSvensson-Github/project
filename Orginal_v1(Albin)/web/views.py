@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, session, request, redirect, url_for
+from pymysql import IntegrityError
+from .auth import login_required  # tror inte detta är ett bra sätt att göra det på
+# tror att man kan "registrera funktionen på något sätt"
+from .db import get_db
+from flask import Blueprint, render_template, session, request, redirect, url_for, g, flash
 
 views = Blueprint('views', __name__)
 
@@ -7,3 +11,50 @@ views = Blueprint('views', __name__)
 @views.route('/home')
 def home():
     return render_template('index.html')
+
+
+@views.route('/test', methods=('GET', 'POST'))
+@login_required  # ger error pymysql.err Already closed
+# verkar som att databasen stänger sig själv av någon anledning??
+# db.ping verkar fixa detta men vet inte varför
+def test():
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        price = request.form['price']
+
+        print(title, description, price)  # g.user['username'])
+        # nu ska anonnsen registreras i databasen med fälten
+        # title, description, pris, användare
+
+        error = None
+
+        if not title:
+            error = "Title is empty"
+        elif not description:
+            error = "Description is empty"
+        elif not price:
+            error = "Price is empty"
+
+        if error is None:  # alla fält har hämtats korrekt och vi kan lägga till i databasen
+            db = get_db()
+
+            db.ping()  # <--- magisk skit som fixar allt?
+
+            try:
+                with db:
+                    with db.cursor() as cursor:
+                        sql = (
+                            'INSERT INTO product(name, price, description) VALUES (%s, %s, %s)')
+
+                        cursor.execute(sql, (title, price, description))
+
+                    db.commit()
+                    return redirect(url_for('views.home'))
+            except db.IntegrityError:
+                flash('något gick fel i databsen')
+
+        else:
+            flash(error)
+
+    return render_template('product.html')
