@@ -1,19 +1,22 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html>
+{% block header %}
+<h1>{% block title %}Lägg till en annons{% endblock %}</h1>
+{% endblock %}
 
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href= "static/style.css">
-</head>
+{% block content %}
+<form method="post">
+    <label for="title">Title</label>
+    <input name="title" id="title" required>
 
-<body>
-    <h1>PRODUCT</h1>
+    <label for="description">Beskrivning</label>
+    <!-- <input type="description" name="description" id="description" required> -->
+    <textarea name="description" name="description" rows="5" cols="50"></textarea>
 
-    <script>
-    </script>
+    <label for="price">Pris</label>
+    <input type="price" name="price" id="price" required>
 
-</body>
 
-</html>
+    <input type="submit" value="Lägg till annons">
+</form>
+{% endblock %}
