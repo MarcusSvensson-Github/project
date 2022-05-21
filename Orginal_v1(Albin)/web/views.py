@@ -3,6 +3,7 @@ from .auth import login_required  # tror inte detta är ett bra sätt att göra 
 # tror att man kan "registrera funktionen på något sätt"
 from .db import get_db
 from flask import Blueprint, render_template, session, request, redirect, url_for, g, flash
+import datetime
 
 views = Blueprint('views', __name__)
 
@@ -14,9 +15,7 @@ def home():
 
 
 @views.route('/test', methods=('GET', 'POST'))
-@login_required  # ger error pymysql.err Already closed
-# verkar som att databasen stänger sig själv av någon anledning??
-# db.ping verkar fixa detta men vet inte varför
+@login_required  
 def test():
     if request.method == 'POST':
         title = request.form['title']
@@ -43,13 +42,28 @@ def test():
 
             try:
                 with db:
-                    with db.cursor() as cursor:
+                    with db.cursor() as cursor:   #insertar produkt i sql
                         sql = (
                             'INSERT INTO product(name, price, description) VALUES (%s, %s, %s)')
-
+                       
                         cursor.execute(sql, (title, price, description))
+                        db.commit()
 
-                    db.commit()
+                    with db.cursor() as cursor:     #hämtar först ID från senast produkt i sql
+                        sql = 'SELECT productID FROM product where name=%s AND description=%s'
+                        cursor.execute(sql, (title, description))
+                        sellID = cursor.fetchone()
+                        sellID = sellID['productID']
+                        print(sellID)
+                                                    #insertar produktID och säljarID med datum till sell table i sql
+                        userID = g.user['username']
+                        date = datetime.datetime.now()
+                        sql = (
+                            'INSERT INTO sell(user, product, creationDATE) VALUES(%s, %s, %s)'
+                        )
+                        cursor.execute(sql, (userID, sellID, date))
+                        db.commit()
+
                     return redirect(url_for('views.home'))
             except db.IntegrityError:
                 flash('något gick fel i databsen')
