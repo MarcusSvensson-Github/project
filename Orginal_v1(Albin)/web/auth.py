@@ -24,6 +24,8 @@ def login_required(view):
 
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
+    if g.user is not None:
+        return redirect(url_for('views.home'))
     if request.method == 'POST':
         # 1. ta in username, password från request.form
         username = request.form['username']
@@ -73,7 +75,7 @@ def logout():
     print(g.user)
     session.clear()
     print(g.user)
-    return 'logout'
+    return redirect(url_for('views.home'))
 
 
 @auth.route('/sign-up', methods=('GET', 'POST'))

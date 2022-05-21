@@ -11,12 +11,24 @@ views = Blueprint('views', __name__)
 @views.route('/')
 @views.route('/home')
 def home():
+    # vi vill läsa produkter ifrån sql och lägga i en lista 
+    db = get_db()
+
+    db.ping()  # <--- magisk skit som fixar allt?
+
+
+    with db:
+        with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan, hämtas i 3 listor som gås igenom och printas ut i index.html med jinja
+            sql = 'SELECT * FROM product'
+            cursor.execute(sql)
+            g.IndexProducts = cursor.fetchall()
+            
     return render_template('index.html')
 
 
-@views.route('/test', methods=('GET', 'POST'))
+@views.route('/sell', methods=('GET', 'POST'))
 @login_required  
-def test():
+def sell():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
