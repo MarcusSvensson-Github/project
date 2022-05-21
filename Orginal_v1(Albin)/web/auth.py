@@ -34,6 +34,7 @@ def login():
         error = None
         # 2. kolla om username finns i databas
         db = get_db()
+        db.ping()
 
         with db:
             with db.cursor() as cursor:
@@ -54,6 +55,8 @@ def login():
                     session['user'] = user['username']
                     return redirect(url_for('views.home'))
                 flash(error)
+            return redirect(url_for('auth.sign_up'))
+            
 
     return render_template('login.html')
     # 2.1 om det inte finns ge error. Användaren har inte konto
@@ -78,8 +81,8 @@ def logout():
     return redirect(url_for('views.home'))
 
 
-@auth.route('/sign-up', methods=('GET', 'POST'))
-def create_user():
+@auth.route('/sign_up', methods=('GET', 'POST'))
+def sign_up():
     if request.method == 'POST':
         # för hashing använd
         # from werkzeug.security import check_password_hash, generate_password_hash
@@ -103,6 +106,7 @@ def create_user():
 
         # 3. kolla så att användaren inte redan finns i databasen
         db = get_db()
+        db.ping()
         if error is None:
             try:
                 with db:
@@ -134,9 +138,4 @@ def load_logged_in_user():
                 g.user = cursor.fetchone()
 
 
-@auth.route('/test')
-def test():
-    if g.user is None:
-        return "g.user är tom"
-    else:
-        return g.user
+

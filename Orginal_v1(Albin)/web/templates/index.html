@@ -11,16 +11,21 @@
 
 <!-- %{for product in products }% loopar igenom alla produkter i databasen-->
 {% for p in g.IndexProducts %}
+<br>
 <article class="products">
     <header>
         <div>
             <h1>{{p['name']}}</h1>
-            <div class="about">Säjare:Albin Doroci
+            <div class="about">Säjare:{{p['user']}}
             </div>
         </div>
     </header>
-    <p class="body">Detta ska plockas från databasen och skrivas med pyhthon
-        för att få flera produkter kan dessa plockas från databasen och sedan loopas igenom med python</p>
+    <br>
+    <p class="body"> {{p['description']}} </p>
+    <p class="body"> {{p['price']}}kr </p>
+    <p class="body"> skapad: {{p['creationDate']}} </p>
+    <br>
+    <hr>
 </article>
 {% endfor %}
 

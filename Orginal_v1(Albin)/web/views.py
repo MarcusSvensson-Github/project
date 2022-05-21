@@ -19,10 +19,11 @@ def home():
 
     with db:
         with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan, hämtas i 3 listor som gås igenom och printas ut i index.html med jinja
-            sql = 'SELECT * FROM product'
+            sql = 'SELECT * FROM sell inner join product on sell.product=product.productID'
             cursor.execute(sql)
             g.IndexProducts = cursor.fetchall()
-            
+            print(g.IndexProducts)
+     
     return render_template('index.html')
 
 
