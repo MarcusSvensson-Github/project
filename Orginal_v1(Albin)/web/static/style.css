@@ -4,18 +4,24 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+a.href{
+    color: black;
+    text-decoration: none;
+}
+
 article.outer_products{
     display: block;
     border: inset;
     border-width: 5px;
     border-color: rgb(180, 154, 121);
     margin: 30px 100px 30px 100px;
-    background-color: rgb(223, 212, 199);;
+    background-color: rgb(223, 212, 199);
     padding: 10px;
 }
 
 article.outer_products:hover { 
     box-shadow: 10px 10px rgba(0,0,0,.25);
+    background-color: rgba(223, 212, 199, 0.637);
   }
 
 h1.base_header{
@@ -37,9 +43,6 @@ div.article_header{
 }
 
 p.pname{
-    color: black;
-    text-decoration: none;
-    text-decoration-line: underline;
     margin-bottom: 10px;
 }
 
