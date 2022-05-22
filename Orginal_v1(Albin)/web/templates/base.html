@@ -6,13 +6,15 @@
     rel="stylesheet">
 
 <nav>
-    <h1>MA Market</h1>
+    <h1 class="base_header">M.A Market</h1>
     <ul class="navbar">
-        <li><a href="{{ url_for('auth.login') }}">login</a></li>
-        <li><a href="{{ url_for('views.home') }}">index</a></li>
+        <li><a href="{{ url_for('views.home') }}">Home</a></li>
+        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('auth.sign_up') }}">Sign up</a></li>
+        <li><a href="{{ url_for('views.sell') }}">Sell product</a></li>
+        <p class='user'>{% if g.user is not none %} Användare: {{g.user['username']}} {% endif %}</p><!-- %{ pyhton logik }%   python variabler %{avsluta 'block'}% -->
     </ul>
-    <br>
 </nav>
 
 

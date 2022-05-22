@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{%block header%}
+<br>
+<h1 class="index_header">{% block title %}Varukorg{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<!-- Här kan vi skriva python/html-->
+<!-- Exempelvis en vara som ska säljas-->
+<!-- Ett väldigt fult exempel på produktsida-->
+
+<!-- %{for product in products }% loopar igenom alla produkter i databasen-->
+
+<article class="outer_products">
+    <div class="inner_products">
+        <div class="article_header">
+           <p class='pname'>{{g.buyProducts['name']}}</p>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
+        </div>    
+        <div class="seller">Säjare:{{g.buyProducts['user']}}
+        </div>
+        <br>
+        <p class="body"> {{g.buyProducts['description']}} </p>
+        <p class="body"> {{g.buyProducts['price']}}kr </p>
+        <p class="body"> skapad: {{g.buyProducts['creationDate']}} </p>
+</article>
+
+
+<!-- %{ endif }% stänger for looopen-->
+{% endblock %}

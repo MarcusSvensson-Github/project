@@ -9,8 +9,8 @@ def get_db():
     if 'db' not in g:
         g.db = pymysql.connect(host='127.0.0.1',
                                user='root',
-                               password='password123'.encode().decode('latin1'),
-                               database='projekt',
+                               password='12345'.encode().decode('latin1'),
+                               database='market',
                                charset='utf8mb4',
                                cursorclass=pymysql.cursors.DictCursor)
 

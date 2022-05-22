@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Log In{% endblock %}</h1>
+<h1>{% block title %}<h1 class="index_header">Sign Up</h1>{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form class="login_and_sign" method="post">
     <label for="username">Username</label>
     <input name="username" id="username" required>
 
