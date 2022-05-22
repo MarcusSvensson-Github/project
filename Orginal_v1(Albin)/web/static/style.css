@@ -4,9 +4,45 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-ul.user{
+article.outer_products{
+    display: block;
+    border: inset;
+    border-width: 5px;
+    border-color: rgb(180, 154, 121);
+    margin: 30px 100px 30px 100px;
+    background-color: rgb(223, 212, 199);;
+    padding: 10px;
+}
+
+h1.base_header{
+    font-size: 50px;
+    font-style: italic;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+h1.index_header{
+    margin: 20px;
+    text-align: center;
+}
+
+h1.header{
+    text-align: center;
+    text-decoration-line: underline;
+}
+
+div.seller{
+    text-align: center;
+}
+
+p.body{
+    text-align: center;
+}
+
+p.user{
+    font-style: italic;
     list-style-type: none;
-    margin: 0;
+    margin-top: 5px;
     padding: 0;
     overflow: hidden;
     float: right;
@@ -20,11 +56,9 @@ ul.user{
 }
 
 
-
 ul.navbar {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    padding: 10px;
     overflow: hidden;
     background-color: #dddddd;
 }

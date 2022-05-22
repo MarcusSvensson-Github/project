@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {%block header%}
-<h1>{% block title %}PRODUKTER TILL SALU{% endblock %}</h1>
+<br>
+<h1 class="index_header">{% block title %}PRODUKTER TILL SALU{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -11,21 +12,17 @@
 
 <!-- %{for product in products }% loopar igenom alla produkter i databasen-->
 {% for p in g.IndexProducts %}
-<br>
-<article class="products">
-    <header>
-        <div>
-            <h1>{{p['name']}}</h1>
-            <div class="about">Säjare:{{p['user']}}
-            </div>
-        </div>
-    </header>
-    <br>
-    <p class="body"> {{p['description']}} </p>
-    <p class="body"> {{p['price']}}kr </p>
-    <p class="body"> skapad: {{p['creationDate']}} </p>
-    <br>
-    <hr>
+<article class="outer_products">
+    <div class="inner_products">
+        <header>
+            <h1 class="header">{{p['name']}}</h1>
+                <div class="seller">Säjare:{{p['user']}}
+                </div>
+        </header>
+        <br>
+        <p class="body"> {{p['description']}} </p>
+        <p class="body"> {{p['price']}}kr </p>
+        <p class="body"> skapad: {{p['creationDate']}} </p>
 </article>
 {% endfor %}
 
