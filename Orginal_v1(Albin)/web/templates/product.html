@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Lägg till en annons{% endblock %}</h1>
+{% block title %}<h1 class="index_header">Lägg till en annons{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form class="login_and_sign" method="post">
     <label for="title">Title</label>
     <input name="title" id="title" required>
-
+    
     <label for="description">Beskrivning</label>
     <!-- <input type="description" name="description" id="description" required> -->
     <textarea name="description" name="description" rows="5" cols="50"></textarea>
-
+    
     <label for="price">Pris</label>
     <input type="price" name="price" id="price" required>
 

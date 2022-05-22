@@ -63,6 +63,11 @@ p.user{
 
 }
 
+form.login_and_sign{
+    margin: 50px;
+    text-align: center;
+    
+}
 
 ul.navbar {
     list-style-type: none;
