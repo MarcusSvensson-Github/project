@@ -27,6 +27,11 @@ def home():
     return render_template('index.html')
 
 
+@views.route('/buy/<productID>', methods=('GET', 'POST'))
+@login_required  
+def buy(productID):
+    return productID
+
 @views.route('/sell', methods=('GET', 'POST'))
 @login_required  
 def sell():

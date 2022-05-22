@@ -26,9 +26,17 @@ h1.index_header{
     text-align: center;
 }
 
-h1.header{
+div.article_header{
+    font-style: italic;
+    font-size: 25px;
     text-align: center;
+}
+
+p.pname{
+    color: black;
+    text-decoration: none;
     text-decoration-line: underline;
+    margin-bottom: 10px;
 }
 
 div.seller{

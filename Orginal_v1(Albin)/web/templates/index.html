@@ -14,11 +14,12 @@
 {% for p in g.IndexProducts %}
 <article class="outer_products">
     <div class="inner_products">
-        <header>
-            <h1 class="header">{{p['name']}}</h1>
-                <div class="seller">Säjare:{{p['user']}}
-                </div>
-        </header>
+        <div class="article_header">
+            {% set current= p['productID'] %}
+            <a href="{{ url_for('views.buy', productID=current ) }}"><p class='pname'>{{p['name']}}</p></a>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
+        </div>    
+        <div class="seller">Säjare:{{p['user']}}
+        </div>
         <br>
         <p class="body"> {{p['description']}} </p>
         <p class="body"> {{p['price']}}kr </p>
