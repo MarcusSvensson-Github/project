@@ -15,14 +15,14 @@
 <article class="outer_products">
     <div class="inner_products">
         <div class="article_header">
-           <p class='pname'>{{g.buyProducts}}</p>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
+           <p class='pname'>{{g.buyProducts['name']}}</p>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
         </div>    
-        <div class="seller">Säjare:{{'säljare'}}
+        <div class="seller">Säjare:{{g.buyProducts['user']}}
         </div>
         <br>
-        <p class="body"> {{'  '}} </p>
-        <p class="body"> {{'  '}}kr </p>
-        <p class="body"> skapad: {{'  '}} </p>
+        <p class="body"> {{g.buyProducts['description']}} </p>
+        <p class="body"> {{g.buyProducts['price']}}kr </p>
+        <p class="body"> skapad: {{g.buyProducts['creationDate']}} </p>
 </article>
 
 
