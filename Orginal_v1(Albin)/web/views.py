@@ -30,7 +30,18 @@ def home():
 @views.route('/buy/<productID>', methods=('GET', 'POST'))
 @login_required  
 def buy(productID):
-    return productID
+    db = get_db()
+
+    db.ping()  # <--- magisk skit som fixar allt?
+
+
+    with db:
+        with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan, hämtas i 3 listor som gås igenom och printas ut i index.html med jinja
+            sql = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
+            cursor.execute(sql, (productID))
+            g.buyProducts = cursor.fetchone()
+            print(g.buyProducts)
+    return render_template('buy.html')
 
 @views.route('/sell', methods=('GET', 'POST'))
 @login_required  
