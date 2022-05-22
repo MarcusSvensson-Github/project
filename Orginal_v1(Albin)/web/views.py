@@ -31,16 +31,17 @@ def home():
 @login_required  
 def buy(productID):
     db = get_db()
-
     db.ping()  # <--- magisk skit som fixar allt?
 
-
+    #finns produkten kvar i databasen?
     with db:
         with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan, hämtas i 3 listor som gås igenom och printas ut i index.html med jinja
             sql = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
-            cursor.execute(sql, (productID))
-            g.buyProducts = cursor.fetchone()
-            print(g.buyProducts)
+            if cursor.execute(sql, (productID)) == 0:
+                return 'product not found'
+            else:
+                g.buyProducts = cursor.fetchone()
+                print(g.buyProducts)
     return render_template('buy.html')
 
 @views.route('/sell', methods=('GET', 'POST'))
