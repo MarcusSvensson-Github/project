@@ -13,15 +13,17 @@ article.outer_products{
     display: block;
     border: inset;
     border-width: 5px;
-    border-color: rgb(180, 154, 121);
+    border-color: rgba(180, 154, 121);
     margin: 30px 100px 30px 100px;
     background-color: rgb(223, 212, 199);
     padding: 10px;
+    transition: 0.5s;
 }
 
 article.outer_products:hover { 
     box-shadow: 10px 10px rgba(0,0,0,.25);
-    margin: 20px 80px 25px 80px;
+    margin: 30px 70px 30px 70px;
+    border-color: rgba(180, 154, 121, 0.541);
     background-color: rgba(223, 212, 199, 0.637);
     transition: 0.5s;
   }
