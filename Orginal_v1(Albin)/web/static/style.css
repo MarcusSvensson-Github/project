@@ -24,7 +24,19 @@ article.outer_products:hover {
     background-color: rgba(223, 212, 199, 0.637);
   }
 
-h1.base_header{
+article.outer_products_buy{
+    display: block;
+    border: inset;
+    border-width: 5px;
+    border-color: rgb(180, 154, 121);
+    margin: 30px 100px 30px 100px;
+    background-color: rgb(223, 212, 199);
+    padding: 10px;
+}
+
+.base_header{
+    text-decoration: none;
+    color: black;
     font-size: 50px;
     font-style: italic;
     padding-top: 10px;

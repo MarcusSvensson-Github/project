@@ -6,7 +6,7 @@
     rel="stylesheet">
 
 <nav>
-    <h1 class="base_header">M.A Market</h1>
+    <a class="base_header" href="{{ url_for('views.home') }}">M.A Market</a>
     <ul class="navbar">
         <li><a href="{{ url_for('views.home') }}">Home</a></li>
         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
