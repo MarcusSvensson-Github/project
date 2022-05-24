@@ -30,6 +30,9 @@ def home():
 @views.route('/buy/<productID>', methods=('GET', 'POST'))
 @login_required  
 def buy(productID):
+    if request.method == 'POST': #om någon klickar på köp knappen
+        return redirect(url_for('views.home'))
+
     db = get_db()
     db.ping()  # <--- magisk skit som fixar allt?
 
