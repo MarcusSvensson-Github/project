@@ -3,7 +3,7 @@ from .auth import login_required  # tror inte detta är ett bra sätt att göra 
 # tror att man kan "registrera funktionen på något sätt"
 from .db import get_db
 from flask import Blueprint, render_template, session, request, redirect, url_for, g, flash
-import datetime
+import datetime, time
 
 views = Blueprint('views', __name__)
 
@@ -33,24 +33,26 @@ def buy(productID):
     if request.method == 'POST': #om någon klickar på köp knappen
         db = get_db()
         db.ping()  # <--- magisk skit som fixar allt?
-
-        #finns produkten kvar i databasen?
         with db:
             with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan
-                sql = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
-                if cursor.execute(sql, (productID)) == 0: #kollar om produkten finns i databas
-                    return 'product not found'
+                sqlinfo = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
+                if cursor.execute(sqlinfo, (productID)) == 0: #kollar om produkten finns i databas
+                    return redirect(url_for('views.fail')) 
                 else:    
+                    sqlinfo = cursor.fetchone()
+                    date = datetime.datetime.now()
+                    buyer = g.user['username']
+                    productID = sqlinfo['productID']
+
                     db.begin()  # börja transaktion 
+                    sql = 'INSERT INTO buy VALUES(%s, %s, %s)' #lägg till i buy tabell 
+                    cursor.execute(sql, (buyer, productID, date)) # <-----------------------
 
                     sql = 'DELETE FROM sell where product=%s' #tar bort product i sell tabell
                     cursor.execute(sql, (productID))
-                    sql = 'DELETE FROM product where productID=%s' #tar bort product i product tabell
-                    cursor.execute(sql, (productID))
-                    # ny tabell att spara i där du kan se dina köp?
                     
                     db.commit()            # commit (avslutar transaktionen)
-                    
+                    msg = 'Your bought an item :)'
                     return redirect(url_for('views.home'))
 
     db = get_db()
@@ -61,11 +63,17 @@ def buy(productID):
         with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan, hämtas i 3 listor som gås igenom och printas ut i index.html med jinja
             sql = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
             if cursor.execute(sql, (productID)) == 0:
-                return 'product not found'
+                return redirect(url_for('views.fail'))
             else:
                 g.buyProducts = cursor.fetchone()
                 print(g.buyProducts)
     return render_template('buy.html')
+
+@views.route('/fail')
+@login_required  
+def fail():
+    return render_template('fail.html')
+
 
 @views.route('/sell', methods=('GET', 'POST'))
 @login_required  
