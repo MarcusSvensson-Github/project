@@ -13,18 +13,34 @@ article.outer_products{
     display: block;
     border: inset;
     border-width: 5px;
+    border-color: rgba(180, 154, 121);
+    margin: 30px 100px 30px 100px;
+    background-color: rgb(223, 212, 199);
+    padding: 10px;
+    transition: 0.5s;
+}
+
+article.outer_products:hover { 
+    box-shadow: 10px 10px rgba(0,0,0,.25);
+    margin: 30px 70px 30px 70px;
+    border-color: rgba(180, 154, 121, 0.541);
+    background-color: rgba(223, 212, 199, 0.637);
+    transition: 0.5s;
+  }
+
+article.outer_products_buy{
+    display: block;
+    border: inset;
+    border-width: 5px;
     border-color: rgb(180, 154, 121);
     margin: 30px 100px 30px 100px;
     background-color: rgb(223, 212, 199);
     padding: 10px;
 }
 
-article.outer_products:hover { 
-    box-shadow: 10px 10px rgba(0,0,0,.25);
-    background-color: rgba(223, 212, 199, 0.637);
-  }
-
-h1.base_header{
+.base_header{
+    text-decoration: none;
+    color: black;
     font-size: 50px;
     font-style: italic;
     padding-top: 10px;

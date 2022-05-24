@@ -30,6 +30,29 @@ def home():
 @views.route('/buy/<productID>', methods=('GET', 'POST'))
 @login_required  
 def buy(productID):
+    if request.method == 'POST': #om någon klickar på köp knappen
+        db = get_db()
+        db.ping()  # <--- magisk skit som fixar allt?
+
+        #finns produkten kvar i databasen?
+        with db:
+            with db.cursor() as cursor:   #hämta produkterna i våran sql för att visa på index sidan
+                sql = 'SELECT * FROM sell inner join product on sell.product=product.productID where productID=%s'
+                if cursor.execute(sql, (productID)) == 0: #kollar om produkten finns i databas
+                    return 'product not found'
+                else:    
+                    db.begin()  # börja transaktion 
+
+                    sql = 'DELETE FROM sell where product=%s' #tar bort product i sell tabell
+                    cursor.execute(sql, (productID))
+                    sql = 'DELETE FROM product where productID=%s' #tar bort product i product tabell
+                    cursor.execute(sql, (productID))
+                    # ny tabell att spara i där du kan se dina köp?
+                    
+                    db.commit()            # commit (avslutar transaktionen)
+                    
+                    return redirect(url_for('views.home'))
+
     db = get_db()
     db.ping()  # <--- magisk skit som fixar allt?
 
