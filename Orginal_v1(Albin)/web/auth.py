@@ -1,15 +1,9 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, g
-
 import functools
-
-# funktion för att läsa databas
-from .db import get_db
-
+from .db import get_db # funktion för att läsa databas
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
 auth = Blueprint('auth', __name__)
-
 
 def login_required(view):
     @functools.wraps(view)
@@ -43,7 +37,6 @@ def login():
 
                 cursor.execute(sql, (username))
                 user = cursor.fetchone()
-                print(user)
 
                 if user is None:
                     error = 'Wrong username'
@@ -54,30 +47,16 @@ def login():
                     session.clear()
                     session['user'] = user['username']
                     return redirect(url_for('views.home'))
+                    
                 flash(error)
-            return redirect(url_for('auth.sign_up'))
-            
-
+    
     return render_template('login.html')
-    # 2.1 om det inte finns ge error. Användaren har inte konto
-    # 3. hasha lösenord och jämför med det hashade i databasen
-    # 3.1 matchar det inte ge error. fel lösenord.
-    # 4. sätt session['user_id'] = unikt id för användaren från databas
-    # 5. redirecta användaren till lämplig sida ex index.
-
-
-    # OBS INTE KORREKT SÄTT ATT GÖRA DETTA PÅ följ stegen ovan istället
-"""         session['username'] = request.form['username']
-        session['password'] = request.form['password']
-        print(session['username'], session['password']) """
 
 
 @auth.route('/logout')
 @login_required
 def logout():
-    print(g.user)
     session.clear()
-    print(g.user)
     return redirect(url_for('views.home'))
 
 
@@ -87,13 +66,13 @@ def sign_up():
         # för hashing använd
         # from werkzeug.security import check_password_hash, generate_password_hash
 
-        # 1. ta in username, password från request.form
+        #  ta in username, password från request.form
         username = request.form['username']
         password = request.form['password']
         phone = request.form['phone']
         mail = request.form['mail']
 
-        # 2. kolla så att fälten inte är tomma
+        # kolla så att fälten inte är tomma
         error = None
         if not username:
             error = 'Username is required'
@@ -104,7 +83,7 @@ def sign_up():
         elif not mail:
             error = 'mail is required'
 
-        # 3. kolla så att användaren inte redan finns i databasen
+        # kolla så att användaren inte redan finns i databasen
         db = get_db()
         db.ping()
         if error is None:
@@ -117,6 +96,7 @@ def sign_up():
                     db.commit()
             except db.IntegrityError:
                 error = f'user {username} is already registered'
+                
             else:
                 return redirect(url_for('auth.login'))
         flash(error)

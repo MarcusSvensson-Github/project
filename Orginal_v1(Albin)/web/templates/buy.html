@@ -6,16 +6,12 @@
 {% endblock %}
 
 {% block content %}
-<!-- Här kan vi skriva python/html-->
-<!-- Exempelvis en vara som ska säljas-->
-<!-- Ett väldigt fult exempel på produktsida-->
 
 <!-- %{for product in products }% loopar igenom alla produkter i databasen-->
-
 <article class="outer_products_buy">
     <div class="inner_products">
         <div class="article_header">
-           <p class='pname'>{{g.buyProducts['name']}}</p>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
+           <p class='pname'>{{g.buyProducts['title']}}</p> 
         </div>    
         <div class="seller">Säjare:{{g.buyProducts['user']}}
         </div>
@@ -25,10 +21,8 @@
         <p class="body"> skapad: {{g.buyProducts['creationDate']}} </p>
 </article>
 
-<form class="login_and_sign" method="post">
+
+<form class="login_and_sign" method="post">         <!-- knapp för köpa produkt -->
     <input type="submit" value="buy this product">
 </form>
-
-
-<!-- %{ endif }% stänger for looopen-->
 {% endblock %}

@@ -9,6 +9,12 @@ a.href{
     text-decoration: none;
 }
 
+.flash{
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+}
+
 article.outer_products{
     display: block;
     border: inset;
@@ -58,7 +64,7 @@ div.article_header{
     text-align: center;
 }
 
-p.pname{
+p.title{
     margin-bottom: 10px;
 }
 

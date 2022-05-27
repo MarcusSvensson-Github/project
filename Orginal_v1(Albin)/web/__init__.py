@@ -3,7 +3,7 @@ from flask import Flask, render_template, session, request, redirect, url_for
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "test"
+    app.config['SECRET_KEY'] = "supersäker"
 
     from .views import views
     from .auth import auth

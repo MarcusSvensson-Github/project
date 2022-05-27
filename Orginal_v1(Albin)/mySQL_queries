@@ -1,25 +1,5 @@
-CREATE TABLE Customers(username varchar(50), password varchar(50), phone integer, email varchar(50), primary key (username));
+CREATE TABLE Customers(username varchar(50), password varchar(150), phone integer, email varchar(50), primary key (username));
 CREATE TABLE Product (productID integer not null auto_increment, name varchar(50), price integer, description varchar(100), primary key (productID));
 CREATE TABLE Sell(user varchar(50), product integer, creationDate date, foreign key (user) references Customers(username), foreign key (product) references Product(productID));
 CREATE TABLE Buy(user varchar(50), product integer, boughtDate date, foreign key (user) references Customers(username), foreign key (product) references Product(productID));
 
-
-pyMSAD'@'%'
-pw: 54321
-
-insert into Customer(Name, Address)
-values('Stefan Holm', 'Violvägen 7'),
-('Anna Andersson', 'Andersvägen 3A'),
-('Sure Fredriksson', 'tegelvägen 12'),
-('Tyra Åkesson', 'Tärnvägen 45');
-
-insert into Books(Author, Title, Pages)
-values('J.K Rowling', 'Harry Potter and the philosophers stone', 562),
-('R.R Martins', 'Spelet om troner)', 891),
-('Astrid Lindgren', 'Pippi långstrum', 25),
-('Greta Tunberg', 'Nå nya höjder', 400);
-
-insert into Renting(Customer, Book, StartDate, EndDate)
-values(1, 1, '2020-02-01', '2020-03-01'),
-(1, 4, '2020-03-01', '2020-04-01'),
-(4, 3, '2020-02-15', '2020-03-15');

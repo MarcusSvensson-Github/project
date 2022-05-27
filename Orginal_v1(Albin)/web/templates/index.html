@@ -6,18 +6,14 @@
 {% endblock %}
 
 {% block content %}
-<!-- Här kan vi skriva python/html-->
-<!-- Exempelvis en vara som ska säljas-->
-<!-- Ett väldigt fult exempel på produktsida-->
 
 <!-- %{for product in products }% loopar igenom alla produkter i databasen-->
 {% for p in g.IndexProducts %}
-{% set current= p['productID'] %}
+{% set current= p['productID'] %}   <!-- vi plockar ut den aktuella produkten vi vill visa i current -->
 <a class='href' href="{{ url_for('views.buy', productID=current ) }}">
     <article class="outer_products">
-        <div class="inner_products">
             <div class="article_header">
-                <p class='pname'>{{p['name']}}</p>  <!--  viewvvv PUNKT mås mås indexa uifrån p-->
+                <p class='title'>{{p['title']}}</p>  
             </div>    
             <div class="seller">Säjare:{{p['user']}}
             </div>
@@ -29,5 +25,4 @@
 </a> 
 {% endfor %}
 
-<!-- %{ endif }% stänger for looopen-->
 {% endblock %}
