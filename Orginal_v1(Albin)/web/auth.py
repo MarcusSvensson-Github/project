@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 auth = Blueprint('auth', __name__)
 
-def login_required(view):
+def login_required(view):      # källkod tagen https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
